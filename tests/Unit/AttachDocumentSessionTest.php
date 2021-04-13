@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Exceptions\AppBaseException;
 use App\Models\Document;
 use App\Models\DocumentStatus;
 use App\Models\Session;
@@ -30,20 +31,16 @@ class AttachDocumentSessionTest extends TestCase
     }
 
     /** @test */
-    public function a_document_can_be_added_to_a_session_many_times()
+    public function adding_a_document_twice_throws_an_exception()
     {
-        $this->attachDocumentAndReload(2);
+        $this->expectException(AppBaseException::class);
+        
+        $r = rand(2, 5);
+        $this->attachDocumentAndReload($r);
 
-        $this->assertEquals(2, $this->document->sessions->count());
+        $this->assertEquals(1, $this->document->sessions->count());
         $this->assertEquals(1, $this->session->documents->count());
     }
-
-    /** @test */
-    // public function attaching_a_document_to_a_session_requires_document_to_be_()
-    // {
-    //     $this->attachDocumentAndReload();
-    //     $this->assertEquals(DocumentStatus::DOC_STATUS_AGUARDANDO_VOTACAO, $this->document->document_status_id);
-    // }
 
     /** @test */
     public function attaching_a_document_to_a_session_changes_its_status_to_waiting_votes()

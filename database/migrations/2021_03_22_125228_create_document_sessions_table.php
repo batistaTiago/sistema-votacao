@@ -22,6 +22,8 @@ class CreateDocumentSessionsTable extends Migration
             $table->foreign('session_id')->references('id')->on('sessions');
             $table->foreign('document_id')->references('id')->on('documents');
 
+            $table->unique(['session_id', 'document_id']);
+
             $table->timestamps();
         });
     }
