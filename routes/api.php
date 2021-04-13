@@ -1,7 +1,7 @@
 <?php
 
 
-Route::post('/login', 'Auth\LoginController@login')->name('api.user.login');
+Route::post('/login', 'Auth\LoginController@login')->name('api.login');
 
 Route::get('documents', 'DocumentController@index')->name('api.documents.index'); // @TODO: singular ou plural?
 Route::post('documents', 'DocumentController@store')->name('api.documents.store'); // @TODO: singular ou plural?

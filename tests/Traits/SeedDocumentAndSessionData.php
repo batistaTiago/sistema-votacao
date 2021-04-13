@@ -6,12 +6,42 @@ use App\Models\Document;
 use App\Models\DocumentSession;
 use App\Models\DocumentStatus;
 use App\Models\Session;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 trait SeedDocumentAndSessionData
 {
 
     public function seedDocumentAndSessionData()
     {
+        User::insert([
+
+            [
+                'name' => 'secretaria',
+                'email' => 'secretaria@smartvote.com',
+                'password' => Hash::make('senha123')
+            ],
+            [
+                'name' => 'deputado',
+                'email' => 'deputado@smartvote.com',
+                'password' => Hash::make('senha123')
+            ],
+            [
+                'name' => 'vereador',
+                'email' => 'vereador@smartvote.com',
+                'password' => Hash::make('senha123')
+            ],
+            [
+                'name' => 'presidente',
+                'email' => 'presidente@smartvote.com',
+                'password' => Hash::make('senha123')
+            ],
+            [
+                'name' => 'admin',
+                'email' => 'admin@smartvote.com',
+                'password' => Hash::make('senha123')
+            ],
+        ]);
 
         Session::insert([
             [
