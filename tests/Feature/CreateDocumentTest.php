@@ -10,7 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class DocumentTest extends TestCase
+class CreateDocumentTest extends TestCase
 {
 
     public function setUp(): void
