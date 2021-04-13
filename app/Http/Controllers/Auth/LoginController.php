@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
@@ -34,6 +39,37 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('auth:api', ['except' => ['login']]);
+    }
+
+    public function login(Request $request)
+    {
+        try{
+            $credentials = $request->only(['email', 'password']);
+
+            if (! $token = auth('api')->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            
+            $user = auth('api')->user();
+
+
+            // Get expiration time
+            $objectToken = JWTAuth::setToken($token);
+            $expiration = JWTAuth::decode($objectToken->getToken())->get('exp');
+
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => $expiration,
+                'user' => $user
+            ]);
+        }catch(Exception $e)
+        {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ], 404);
+        }
+
     }
 }
