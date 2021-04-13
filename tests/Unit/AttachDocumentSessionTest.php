@@ -31,10 +31,10 @@ class AttachDocumentSessionTest extends TestCase
     }
 
     /** @test */
-    public function adding_a_document_twice_throws_an_exception()
+    public function adding_a_document_to_the_same_session_twice_throws_an_exception()
     {
         $this->expectException(AppBaseException::class);
-        
+
         $r = rand(2, 5);
         $this->attachDocumentAndReload($r);
 
