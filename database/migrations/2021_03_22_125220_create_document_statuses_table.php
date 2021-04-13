@@ -24,6 +24,10 @@ class CreateDocumentStatusesTable extends Migration
 
         DocumentStatus::insert([
             [
+                'id' => DocumentStatus::DOC_STATUS_CRIADO,
+                'name' => 'Aguardando votacao',
+            ],
+            [
                 'id' => DocumentStatus::DOC_STATUS_AGUARDANDO_VOTACAO,
                 'name' => 'Aguardando votacao',
             ],

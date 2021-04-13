@@ -17,6 +17,14 @@ class Document extends Model
         'document_category_id' => '=',
     ];
 
+
+    public function sessions()
+    {
+        return $this->belongsToMany(Session::class, DocumentSession::class);
+    }
+
+
+    /* refatorar */
     public static function storeFile($file): string
     {
         $name = $file->name ?? $file->getClientOriginalName();
@@ -42,5 +50,9 @@ class Document extends Model
         }
 
         return $query->get();
+    }
+
+    public function attachToSession(Session $session) {
+        return DocumentSession::attachDocumentToSession($this, $session);
     }
 }

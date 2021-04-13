@@ -55,6 +55,13 @@ class Handler extends ExceptionHandler
             ]);
         }
 
+        if (config('app.DEBUG')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Aconteceu um erro desconhecido!',
+            ]);
+        }
+        
         return parent::render($request, $exception);
     }
 }

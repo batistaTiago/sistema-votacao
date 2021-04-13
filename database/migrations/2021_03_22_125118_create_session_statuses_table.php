@@ -22,11 +22,19 @@ class CreateSessionStatusesTable extends Migration
             $table->timestamps();
         });
 
-        /* @TODO: fazer um enum com os IDs */
         SessionStatus::insert([
-            [ 'name' => 'Em aberto' ],
-            [ 'name' => 'Em votacao' ],
-            [ 'name' => 'Concluida' ],
+            [
+                'id' => SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO,
+                'name' => 'Aguardando votacao'
+            ],
+            [
+                'id' => SessionStatus::SESSION_STATUS_EM_VOTACAO,
+                'name' => 'Em votacao'
+            ],
+            [
+                'id' => SessionStatus::SESSION_STATUS_CONCLUIDA,
+                'name' => 'Concluida'
+            ],
         ]);
     }
 

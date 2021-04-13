@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\DocumentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +25,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedBigInteger('document_category_id');
             $table->foreign('document_category_id')->references('id')->on('document_categories');
 
-            $table->unsignedBigInteger('document_status_id')->default(1);
+            $table->unsignedBigInteger('document_status_id')->default(DocumentStatus::DOC_STATUS_CRIADO);
             $table->foreign('document_status_id')->references('id')->on('document_statuses');
 
             $table->timestamps();

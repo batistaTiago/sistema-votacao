@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Document;
+use App\Models\DocumentStatus;
 use App\Models\User;
 use App\Models\Vote;
 use Tests\TestCase;
@@ -23,14 +25,13 @@ class VoteTest extends TestCase
     public function basic_vote_registry()
     {
 
-        $user = factory(User::class)->create();
+        $document = factory(Document::class)->create([
+            'document_status_id' => DocumentStatus::DOC_STATUS_EM_VOTACAO
+        ]);
 
-        $post_data = [
-            'document_id' => 3,
-            'session_id' => 1,
-            'user_id' => $user->id,
-            'vote_category_id' => 2,
-        ];
+        $post_data = factory(Vote::class)->raw([
+            'document_id' => $document->id,
+        ]);
 
         $this->assertEquals(0, Vote::count());
 
@@ -50,15 +51,13 @@ class VoteTest extends TestCase
     /** @test */
     public function an_user_can_not_vote_twice_on_the_same_document()
     {
+        $document = factory(Document::class)->create([
+            'document_status_id' => DocumentStatus::DOC_STATUS_EM_VOTACAO
+        ]);
 
-        $user = factory(User::class)->create();
-
-        $post_data = [
-            'document_id' => 3,
-            'session_id' => 1,
-            'user_id' => $user->id,
-            'vote_category_id' => 1,
-        ];
+        $post_data = factory(Vote::class)->raw([
+            'document_id' => $document->id,
+        ]);
 
         $this->assertEquals(0, Vote::count());
 
@@ -83,14 +82,13 @@ class VoteTest extends TestCase
     /** @test */
     public function an_user_can_only_vote_on_documents_open_for_voting()
     {
-        $user = factory(User::class)->create();
+        $document = factory(Document::class)->create([
+            'document_status_id' => DocumentStatus::DOC_STATUS_VISTA
+        ]);
 
-        $post_data = [
-            'document_id' => 1,
-            'session_id' => 1,
-            'user_id' => $user->id,
-            'vote_category_id' => 1,
-        ];
+        $post_data = factory(Vote::class)->raw([
+            'document_id' => $document->id,
+        ]);
 
         $this->assertEquals(0, Vote::count());
 

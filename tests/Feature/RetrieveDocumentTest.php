@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\DocumentStatus;
 use Tests\TestCase;
 use Tests\Traits\SeedDocumentAndSessionData;
 
@@ -58,7 +59,7 @@ class RetrieveDocumentTest extends TestCase
     {
 
         $session_id = 2;
-        $document_status_id = 2;
+        $document_status_id = DocumentStatus::DOC_STATUS_EM_VOTACAO;
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('session_id', 'document_status_id'));
 
         $response = $this->get($endpoint, $this->headers);

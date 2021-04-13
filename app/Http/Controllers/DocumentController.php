@@ -27,14 +27,7 @@ class DocumentController extends Controller
 
         $attachment = Document::storeFile($file);
 
-        $session = Session::find($request->session_id)->first();
-
         $document = Document::create(array_merge($request->validated(), compact('attachment')));
-
-        DocumentSession::create([
-            'session_id' => $session->id,
-            'document_id' => $document->id,
-        ]);
 
         return response()->json([
             'success' => true,
