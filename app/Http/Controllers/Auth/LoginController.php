@@ -45,11 +45,11 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         try{
-
             $request->validate([
                 'email' => 'required|string',
                 'password' => 'required|string'
             ]);
+
 
             $credentials = $request->only(['email', 'password']);
 
@@ -58,7 +58,6 @@ class LoginController extends Controller
             }
             
             $user = auth('api')->user();
-
 
             // Get expiration time
             $objectToken = JWTAuth::setToken($token);
