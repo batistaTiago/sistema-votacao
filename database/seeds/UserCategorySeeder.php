@@ -14,13 +14,19 @@ class UserCategorySeeder extends Seeder
     {
         UserCategory::insert([
             [
-                'name' => 'Secretario (a)'
+                'name' => 'Secretario'
             ],
             [
-                'name' => 'Secretario (a)'
+                'name' => 'Deputado'
             ],
             [
-                'name' => 'Secretario (a)'
+                'name' => 'Vereador'
+            ],
+            [
+                'name' => 'Presidente'
+            ],
+            [
+                'name' => 'Admin'
             ],
         ]);
     }

@@ -22,11 +22,6 @@ class CreateDocumentCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        /* @TODO: fazer um enum com os IDs */
-        DocumentCategory::insert([
-            [ 'name' => 'Projeto de lei do executivo' ],
-            [ 'name' => 'Projeto de lei do legislativo' ],
-        ]);
     }
 
     /**

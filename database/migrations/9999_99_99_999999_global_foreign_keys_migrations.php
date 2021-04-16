@@ -14,11 +14,11 @@ class GlobalForeignKeysMigrations extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        // Schema::table('users', function (Blueprint $table) {
 
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('user_categories');
-        });
+        //     $table->unsignedBigInteger('user_category_id');
+        //     $table->foreign('user_category_id')->references('id')->on('user_categories')->nullable();
+        // });
 
         
         

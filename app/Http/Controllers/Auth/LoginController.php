@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserCategory;
 use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -58,8 +59,7 @@ class LoginController extends Controller
             }
             
             $user = auth('api')->user();
-
-            // Get expiration time
+            $category = UserCategory::find($user->user_category_id);
             $objectToken = JWTAuth::setToken($token);
             $expiration = JWTAuth::decode($objectToken->getToken())->get('exp');
 
@@ -67,7 +67,8 @@ class LoginController extends Controller
                 'access_token' => $token,
                 'token_type' => 'bearer',
                 'expires_in' => $expiration,
-                'user' => $user
+                'user' => $user,
+                'category' => $category->name
             ]);
         }catch(Exception $e)
         {

@@ -3,10 +3,12 @@
 namespace Tests\Traits;
 
 use App\Models\Document;
+use App\Models\DocumentCategory;
 use App\Models\DocumentSession;
 use App\Models\DocumentStatus;
 use App\Models\Session;
 use App\Models\User;
+use App\Models\UserCategory;
 use Illuminate\Support\Facades\Hash;
 
 trait SeedDocumentAndSessionData
@@ -14,32 +16,61 @@ trait SeedDocumentAndSessionData
 
     public function seedDocumentAndSessionData()
     {
+
+        UserCategory::insert([
+            [
+                'name' => 'Secretario'
+            ],
+            [
+                'name' => 'Deputado'
+            ],
+            [
+                'name' => 'Vereador'
+            ],
+            [
+                'name' => 'Presidente'
+            ],
+            [
+                'name' => 'Admin'
+            ],
+        ]);
+
+        
         User::insert([
 
             [
                 'name' => 'secretaria',
                 'email' => 'secretaria@smartvote.com',
-                'password' => Hash::make('senha123')
+                'password' => Hash::make('senha123'),
+                'user_category_id' => 1,
             ],
             [
                 'name' => 'deputado',
                 'email' => 'deputado@smartvote.com',
-                'password' => Hash::make('senha123')
+                'password' => Hash::make('senha123'),
+                'user_category_id' => 2,
+
             ],
             [
                 'name' => 'vereador',
                 'email' => 'vereador@smartvote.com',
-                'password' => Hash::make('senha123')
+                'password' => Hash::make('senha123'),
+                'user_category_id' => 3,
+
             ],
             [
                 'name' => 'presidente',
                 'email' => 'presidente@smartvote.com',
-                'password' => Hash::make('senha123')
+                'password' => Hash::make('senha123'),
+                'user_category_id' => 4,
+
             ],
             [
                 'name' => 'admin',
                 'email' => 'admin@smartvote.com',
-                'password' => Hash::make('senha123')
+                'password' => Hash::make('senha123'),
+                'user_category_id' => 5,
+
             ],
         ]);
 
@@ -74,6 +105,35 @@ trait SeedDocumentAndSessionData
             ],
         ]);
 
+
+        DocumentStatus::insert([
+            [
+                'id' => DocumentStatus::DOC_STATUS_CRIADO,
+                'name' => 'Aguardando votacao',
+            ],
+            [
+                'id' => DocumentStatus::DOC_STATUS_AGUARDANDO_VOTACAO,
+                'name' => 'Aguardando votacao',
+            ],
+            [
+                'id' => DocumentStatus::DOC_STATUS_EM_VOTACAO,
+                'name' => 'Em votacao',
+            ],
+            [
+                'id' => DocumentStatus::DOC_STATUS_VISTA,
+                'name' => 'Em vista',
+            ],
+            [
+                'id' => DocumentStatus::DOC_STATUS_VOTACAO_CONCLUIDA,
+                'name' => 'Votacao Concluida',
+            ],
+        ]);
+        
+        DocumentCategory::insert([
+
+            ['name' => 'Projeto de lei do executivo'],
+            ['name' => 'Projeto de lei do legislativo']
+        ]);
         Document::insert([
             [
                 'name' => 'Projeto de lei 420/1620',

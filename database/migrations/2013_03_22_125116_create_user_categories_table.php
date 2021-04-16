@@ -21,13 +21,6 @@ class CreateUserCategoriesTable extends Migration
 
             $table->timestamps();
         });
-
-        /* @TODO: fazer um enum com os IDs */
-        UserCategory::insert([
-            'name' => 'Deputado',
-            'name' => 'Secreatario',
-            'name' => 'Presidente',
-        ]);
     }
 
     /**
