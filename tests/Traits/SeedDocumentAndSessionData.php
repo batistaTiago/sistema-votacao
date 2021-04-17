@@ -134,6 +134,7 @@ trait SeedDocumentAndSessionData
             ['name' => 'Projeto de lei do executivo'],
             ['name' => 'Projeto de lei do legislativo']
         ]);
+        
         Document::insert([
             [
                 'name' => 'Projeto de lei 420/1620',
