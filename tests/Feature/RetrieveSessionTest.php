@@ -2,22 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\Document;
 use App\Models\Session;
 use Tests\TestCase;
-use Tests\Traits\SeedDocumentAndSessionData;
 
 class RetrieveSessionTest extends TestCase
 {
     
-    use SeedDocumentAndSessionData;
-    
     public function setUp(): void
     {
         parent::setUp();
-        $this->seedDocumentAndSessionData();
-
         $this->base_endpoint = route('api.session.index');
-        
     }
 
     /** @test */
@@ -122,7 +117,17 @@ class RetrieveSessionTest extends TestCase
     /** @test */
     public function get_sessions_of_document()
     {
-        $document_id = 2;
+        $expected_count = 3;
+
+        $document = factory(Document::class)->create();
+        $sessions = factory(Session::class, $expected_count)->create();
+
+        /* @TODO: ver forma melhor de fazer isso */
+        foreach ($sessions as $s) {
+            $s->attachDocument($document);
+        }
+
+        $document_id = $document->id;
 
         $endpoint = route('api.session.get-by-document') . '?' . http_build_query(compact('document_id'));
 
@@ -133,6 +138,6 @@ class RetrieveSessionTest extends TestCase
         $response_data = $response->decodeResponseJson();
         $this->assertIsArray($response_data, 'data');
 
-        $this->assertEquals(3, count($response_data['data']));
+        $this->assertEquals($expected_count, count($response_data['data']));
     }
 }

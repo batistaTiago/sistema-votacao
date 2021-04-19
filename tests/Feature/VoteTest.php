@@ -7,19 +7,8 @@ use App\Models\DocumentStatus;
 use App\Models\User;
 use App\Models\Vote;
 use Tests\TestCase;
-use Tests\Traits\SeedDocumentAndSessionData;
-
 class VoteTest extends TestCase
 {
-
-    use SeedDocumentAndSessionData;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->seedDocumentAndSessionData();
-
-    }
 
     /** @test */
     public function basic_vote_registry()

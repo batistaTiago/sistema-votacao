@@ -21,21 +21,6 @@ class CreateSessionStatusesTable extends Migration
 
             $table->timestamps();
         });
-
-        SessionStatus::insert([
-            [
-                'id' => SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO,
-                'name' => 'Aguardando votacao'
-            ],
-            [
-                'id' => SessionStatus::SESSION_STATUS_EM_VOTACAO,
-                'name' => 'Em votacao'
-            ],
-            [
-                'id' => SessionStatus::SESSION_STATUS_CONCLUIDA,
-                'name' => 'Concluida'
-            ],
-        ]);
     }
 
     /**

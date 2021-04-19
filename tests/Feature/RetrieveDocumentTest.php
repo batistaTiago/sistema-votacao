@@ -2,28 +2,33 @@
 
 namespace Tests\Feature;
 
+use App\Models\Document;
 use App\Models\DocumentStatus;
+use App\Models\Session;
 use Tests\TestCase;
-use Tests\Traits\SeedDocumentAndSessionData;
 
 class RetrieveDocumentTest extends TestCase
 {
-    use SeedDocumentAndSessionData;
-
     public function setUp(): void
     {
         parent::setUp();
-        $this->seedDocumentAndSessionData();
-
         $this->base_endpoint = route('api.documents.index');
-
     }
 
     /** @test */
     public function get_documents_from_session()
     {
 
-        $session_id = 1;
+        $expected_count = 2;
+
+        $session = factory(Session::class)->create();
+        $documents = factory(Document::class, $expected_count)->create();
+
+        foreach ($documents as $d) {
+            $session->attachDocument($d);
+        }
+
+        $session_id = $session->id;
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('session_id'));
 
         $response = $this->get($endpoint, $this->headers);
@@ -33,15 +38,25 @@ class RetrieveDocumentTest extends TestCase
         $response_data = $response->decodeResponseJson();
 
         $this->assertIsArray($response_data, 'data');
-        $this->assertEquals(2, count($response_data['data']));
+        $this->assertEquals($expected_count, count($response_data['data']));
     }
 
     /** @test */
     public function get_documents_from_session_by_category()
     {
+        $expected_count = 1;
+        $create_count = 4;
 
-        $session_id = 2;
-        $document_category_id = 2;
+        $session = factory(Session::class)->create();
+        $documents = factory(Document::class, $create_count)->create();
+
+        foreach ($documents as $d) {
+            $session->attachDocument($d);
+        }
+
+        $session_id = $session->id;
+        $document_category_id = $documents->first()->document_category_id;
+
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('session_id', 'document_category_id'));
 
         $response = $this->get($endpoint, $this->headers);
@@ -51,15 +66,29 @@ class RetrieveDocumentTest extends TestCase
         $response_data = $response->decodeResponseJson();
 
         $this->assertIsArray($response_data, 'data');
-        $this->assertEquals(1, count($response_data['data']));
+        $this->assertEquals($expected_count, count($response_data['data']));
     }
 
     /** @test */
     public function get_documents_from_session_by_status()
     {
 
-        $session_id = 2;
-        $document_status_id = DocumentStatus::DOC_STATUS_EM_VOTACAO;
+        $expected_count = 4;
+
+        $session = factory(Session::class)->create();
+        $documents = factory(Document::class, $expected_count)->create();
+        $document = factory(Document::class)->create();
+        
+        foreach ($documents as $d) {
+            $session->attachDocument($d);
+        }
+
+        $documents->first()->document_status_id = DocumentStatus::DOC_STATUS_EM_VOTACAO;
+        $documents->first()->save();
+
+        $session_id = $session->id;
+        $document_status_id = $documents->first()->document_status_id;
+
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('session_id', 'document_status_id'));
 
         $response = $this->get($endpoint, $this->headers);
@@ -69,7 +98,7 @@ class RetrieveDocumentTest extends TestCase
         $response_data = $response->decodeResponseJson();
 
         $this->assertIsArray($response_data, 'data');
-        $this->assertEquals(3, count($response_data['data']));
+        $this->assertEquals(1, count($response_data['data']));
     }
 
     // /** @test */

@@ -7,19 +7,17 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
-use Tests\Traits\SeedDocumentAndSessionData;
 
 
 class LoginTest extends TestCase
 {
 
-    use SeedDocumentAndSessionData, withFaker;
+    use withFaker;
 
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->seedDocumentAndSessionData();
 
         $this->base_endpoint = route('api.login');
 

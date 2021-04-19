@@ -13,9 +13,8 @@ class DocumentCategorySeeder extends Seeder
     public function run()
     {
         DocumentCategory::insert([
-
             ['name' => 'Projeto de lei do executivo'],
-            ['name' => 'Projeto de lei do legislativo']
+            ['name' => 'Projeto de lei do legislativo'],
         ]);
     }
 }

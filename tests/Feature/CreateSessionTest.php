@@ -7,7 +7,7 @@ use App\Models\SessionStatus;
 use App\Models\User;
 use Tests\TestCase;
 
-class SessionTest extends TestCase
+class CreateSessionTest extends TestCase
 {
 
     /** @test */

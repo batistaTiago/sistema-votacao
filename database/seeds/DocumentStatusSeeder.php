@@ -12,8 +12,6 @@ class DocumentStatusSeeder extends Seeder
      */
     public function run()
     {
-
-
         DocumentStatus::insert([
             [
                 'id' => DocumentStatus::DOC_STATUS_CRIADO,

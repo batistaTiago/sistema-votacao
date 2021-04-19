@@ -13,8 +13,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        
-        
         User::insert([
             [
                 'name' => 'Margarete mergete',
