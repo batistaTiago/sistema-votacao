@@ -3,6 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Session;
+use App\Models\SessionStatus;
+use App\Models\User;
 use Tests\TestCase;
 
 class SessionTest extends TestCase
@@ -14,13 +16,15 @@ class SessionTest extends TestCase
 
         $this->assertEquals(0, Session::count());
 
+        $user = factory(User::class)->create();
+
         $post_data = [
             'name' => 'TESTE ABC',
-            'user_id' => 1,
+            'user_id' => $user->id,
         ];
 
         $response = $this->post(route('api.session.store'), $post_data, $this->headers);
-
+        
         $response->assertStatus(200);
         $this->assertEquals(1, Session::count());
 

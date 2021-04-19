@@ -25,7 +25,7 @@ class CreateSessionsTable extends Migration
             $table->foreign('session_status_id')->references('id')->on('session_statuses');
 
             $table->unsignedBigInteger('user_id');
-            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

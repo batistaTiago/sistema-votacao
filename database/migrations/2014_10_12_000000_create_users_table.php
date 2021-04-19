@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('user_category_id');
-            $table->foreign('user_category_id')->references('id')->on('user_categories')->nullable();
+            $table->foreign('user_category_id')->references('id')->on('user_categories');
             $table->rememberToken();
             $table->timestamps();
         });

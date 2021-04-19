@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\UserCategory;
+use App\Models\UserCategory;
 use Faker\Generator as Faker;
 
 $factory->define(UserCategory::class, function (Faker $faker) {
     return [
-        'name' => $faker->sentence(3)
+        'name' => $faker->word(6)
     ];
 });

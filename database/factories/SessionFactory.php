@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Session;
+use App\Models\User;
 use Faker\Generator as Faker;
 
 $factory->define(Session::class, function (Faker $faker) {
@@ -11,7 +12,6 @@ $factory->define(Session::class, function (Faker $faker) {
         'datetime_start' => null,
         'datetime_end' => null,
         'session_status_id' => 1,
-        'user_id' => 1, // e agora????
-        //
+        'user_id' => factory(User::class),
     ];
 });
