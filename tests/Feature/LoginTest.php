@@ -33,12 +33,15 @@ class LoginTest extends TestCase
     public function a_user_can_login()
     {
         
+        $password = $this->faker->sentence(3);
+        $user = factory(User::class)->create([
+            'password' => Hash::make($password)
+        ]);
+
         $data = [
-            'email' => 'secretaria@smartvote.com',
-            'password' => 'senha123'
+            'email' => $user->email,
+            'password' => $password,
         ];
-        
-        $user = User::where('email', $data['email'])->first();
 
         $response = $this->post('api/login', $data);
         $this->assertArrayHasKey('access_token' , $response);
