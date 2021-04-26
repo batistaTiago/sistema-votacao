@@ -30,8 +30,6 @@ class RetrieveSessionTest extends TestCase
 
         $response_data = $response->decodeResponseJson();
 
-        dd(json_encode($response_data));
-
         $this->assertIsArray($response_data, 'data');
         $this->assertEquals(Session::count(), count($response_data['data']));
     }
