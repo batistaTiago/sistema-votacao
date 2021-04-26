@@ -19,6 +19,9 @@ class RetrieveSessionTest extends TestCase
     public function get_all_sessions()
     {
 
+        $expected_count = 3;
+        $sessions = factory(Session::class, $expected_count)->create();
+        
         $endpoint = $this->base_endpoint;
 
         $response = $this->get($endpoint, $this->headers);
@@ -26,6 +29,8 @@ class RetrieveSessionTest extends TestCase
         $response->assertStatus(200);
 
         $response_data = $response->decodeResponseJson();
+
+        dd($response_data);
 
         $this->assertIsArray($response_data, 'data');
         $this->assertEquals(Session::count(), count($response_data['data']));

@@ -15,7 +15,7 @@ class SessionController extends Controller
     {
         $sessions = Session::findWithFilters($request->all());
         return response()->json([
-            'succes' => true,
+            'success' => true,
             'data' => $sessions
         ]);
     }
@@ -29,7 +29,7 @@ class SessionController extends Controller
         $sessions = Session::find($document_sessions->pluck('session_id'));
         
         return response()->json([
-            'succes' => true,
+            'success' => true,
             'data' => $sessions
         ]);
     }
