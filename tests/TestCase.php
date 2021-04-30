@@ -18,7 +18,7 @@ abstract class TestCase extends BaseTestCase
         $this->artisan('db:seed');
 
         $this->headers = [
-            'accept' => 'application/json'
+            // 'accept' => 'application/json'
         ];
 
         $this->withoutExceptionHandling([

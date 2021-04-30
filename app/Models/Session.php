@@ -49,7 +49,7 @@ class Session extends Model
     public function openForVotes()
     {
         if ($this->session_status_id != SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO) {
-            throw new AppBaseException('A sessão não pode está aguardando.');
+            throw new AppBaseException('A sessão não está aguardando abertura de votos.');
         }
 
         $this->datetime_start = now();

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSessionRequest;
+use App\Http\Requests\OpenCloseSessionRequest;
 use App\Models\DocumentSession;
 use App\Models\Session;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class SessionController extends Controller
         ]);
     }
 
-    public function openForVotes(Request $request)
+    public function openVotes(OpenCloseSessionRequest $request)
     {
         $session = Session::find($request->session_id);
         $session->openForVotes();
@@ -57,10 +58,10 @@ class SessionController extends Controller
         ]);
     }
 
-    public function closeVoting(Request $request)
+    public function closeVotes(OpenCloseSessionRequest $request)
     {
         $session = Session::find($request->session_id);
-        $session->closeVoting();
+        $session->closeVotes();
 
         return response()->json([
             'success' => true,

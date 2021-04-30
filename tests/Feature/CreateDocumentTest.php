@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Document;
 use App\Models\DocumentSession;
 use App\Models\DocumentStatus;
-use App\Models\Session;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -20,7 +19,7 @@ class CreateDocumentTest extends TestCase
 
         Storage::fake(Document::DEFAULT_DISK);
         $this->headers = [
-            'accept' => 'application/json', // o que espero como resposta
+            // 'accept' => 'application/json', // o que espero como resposta
         ];
 
         $this->pdf_file = UploadedFile::fake()->create('document.pdf', 1023, 'application/pdf'); // arquivo .pdf com 1023kb
