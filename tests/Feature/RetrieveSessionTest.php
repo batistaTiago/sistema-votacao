@@ -32,6 +32,11 @@ class RetrieveSessionTest extends TestCase
 
         $this->assertIsArray($response_data, 'data');
         $this->assertEquals(Session::count(), count($response_data['data']));
+
+        foreach ($response_data['data'] as $item) {
+            $this->assertArrayHasKey('session_status', $item);
+            $this->assertNotNull($item['session_status']);
+        }
     }
 
     /** @test */

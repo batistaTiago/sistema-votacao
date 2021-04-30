@@ -16,6 +16,10 @@ class Session extends Model
         'datetime_end' => '<=',
     ];
 
+    public function session_status()
+    {
+        return $this->belongsTo(SessionStatus::class);
+    }
 
     /* relacionamentos */
     public function documents()
@@ -45,10 +49,22 @@ class Session extends Model
     public function openForVotes()
     {
         if ($this->session_status_id != SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO) {
-            throw new AppBaseException('A sessão não pode ser aberta para votação.');
+            throw new AppBaseException('A sessão não pode está aguardando.');
         }
 
+        $this->datetime_start = now();
         $this->session_status_id = SessionStatus::SESSION_STATUS_EM_VOTACAO;
+        $this->save();
+    }
+
+    public function closeVotes()
+    {
+        if ($this->session_status_id != SessionStatus::SESSION_STATUS_EM_VOTACAO) {
+            throw new AppBaseException('A sessão não pode está aberta para votação.');
+        }
+
+        $this->datetime_end = now();
+        $this->session_status_id = SessionStatus::SESSION_STATUS_CONCLUIDA;
         $this->save();
     }
 

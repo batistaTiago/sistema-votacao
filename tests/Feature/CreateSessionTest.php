@@ -32,7 +32,7 @@ class CreateSessionTest extends TestCase
 
         $this->assertNull($session->datetime_start);
         $this->assertNull($session->datetime_end);
-        $this->assertEquals(1, $session->session_status_id);
+        $this->assertEquals(SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO, $session->session_status_id);
         $this->assertEquals('TESTE ABC', $session->name);
 
     }

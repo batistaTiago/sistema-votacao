@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\DocumentStatus;
 use App\Models\Session;
 use App\Models\SessionStatus;
+use Carbon\Carbon;
 use Tests\TestCase;
 
 class SessionTest extends TestCase
@@ -18,8 +19,28 @@ class SessionTest extends TestCase
 
         $this->assertEquals(SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO, $session->session_status_id);
 
+        $datetime = now();
         $session->openForVotes();
 
+        $this->assertNotNull($session->datetime_start);
+
+        $this->assertEquals($datetime->toDateString(), Carbon::parse($session->datetime_start)->toDateString());
+        $this->assertEquals(SessionStatus::SESSION_STATUS_EM_VOTACAO, $session->session_status_id);
+    }
+
+    /** @test */
+    public function session_opening()
+    {
+        $session = factory(Session::class)->create();
+
+        $this->assertEquals(SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO, $session->session_status_id);
+
+        $datetime = now();
+        $session->openForVotes();
+
+        $this->assertNotNull($session->datetime_start);
+
+        $this->assertEquals($datetime->toDateString(), Carbon::parse($session->datetime_start)->toDateString());
         $this->assertEquals(SessionStatus::SESSION_STATUS_EM_VOTACAO, $session->session_status_id);
     }
 
@@ -60,5 +81,18 @@ class SessionTest extends TestCase
         $session->openDocumentForVoting($document);
 
         $this->assertEquals(DocumentStatus::DOC_STATUS_EM_VOTACAO, $document->document_status_id);
+    }
+
+    /** @test */
+    public function basic_close_session()
+    {
+        $session = factory(Session::class)->create([
+            'session_status_id' => SessionStatus::SESSION_STATUS_EM_VOTACAO
+        ]);
+
+        $session->closeVotes();
+
+        $this->assertNotNull($session->datetime_end);
+        $this->assertEquals(SessionStatus::SESSION_STATUS_CONCLUIDA, $session->session_status_id);
     }
 }

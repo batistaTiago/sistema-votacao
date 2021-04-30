@@ -13,7 +13,9 @@ class SessionController extends Controller
 
     public function index(Request $request)
     {
-        $sessions = Session::findWithFilters($request->all());
+        $sessions = Session::findWithFilters($request->all())
+            ->load('session_status');
+            
         return response()->json([
             'success' => true,
             'data' => $sessions
@@ -41,6 +43,28 @@ class SessionController extends Controller
         return response()->json([
             'success' => true,
             'data' => $session
+        ]);
+    }
+
+    public function openForVotes(Request $request)
+    {
+        $session = Session::find($request->session_id);
+        $session->openForVotes();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'A sessão foi aberta com sucesso'
+        ]);
+    }
+
+    public function closeVoting(Request $request)
+    {
+        $session = Session::find($request->session_id);
+        $session->closeVoting();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'A sessão foi finalizada com sucesso'
         ]);
     }
 }
