@@ -11,7 +11,7 @@ class Session extends Model
 
     public const AVAILABLE_FILTERS = [
         'session_status_id' => '=',
-        'id' => '=',
+        'id' => '=', 
         'session_category_id' => '=',
         'datetime_start' => '>=',
         'datetime_end' => '<=',
