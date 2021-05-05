@@ -16,6 +16,24 @@ class RetrieveDocumentTest extends TestCase
     }
 
     /** @test */
+    public function get_all_documents()
+    {
+
+        $expected_count = 5;
+        factory(Document::class, $expected_count)->create();
+
+        $response = $this->get($this->base_endpoint, $this->headers);
+
+        $response->assertStatus(200);
+
+        $response_data = $response->decodeResponseJson();
+
+        $this->assertIsArray($response_data, 'data');
+        $this->assertEquals($expected_count, count($response_data['data']));
+    }
+    
+
+    /** @test */
     public function get_documents_from_session()
     {
 

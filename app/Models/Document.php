@@ -17,12 +17,10 @@ class Document extends Model
         'document_category_id' => '=',
     ];
 
-
     public function sessions()
     {
         return $this->belongsToMany(Session::class, DocumentSession::class);
     }
-
 
     /* refatorar */
     public static function storeFile($file): string
@@ -34,13 +32,18 @@ class Document extends Model
 
     public static function findWithFilters(array $filters)
     {
+        if (isset($filters['session_id'])) {
+            $document_ids = DocumentSession::select('document_id')
+                ->where('session_id', $filters['session_id'])
+                ->get()
+                ->pluck('document_id');
+        }
 
-        $document_ids = DocumentSession::select('document_id')
-            ->where('session_id', $filters['session_id'])
-            ->get()
-            ->pluck('document_id');
+        $query = self::query();
 
-        $query = self::query()->whereIn('id', $document_ids);
+        if (!empty($document_ids)) {
+            $query->whereIn('id', $document_ids);
+        }
 
         foreach ($filters as $key => $value) {
             if (array_key_exists($key, self::AVAILABLE_FILTERS)) {
@@ -52,7 +55,8 @@ class Document extends Model
         return $query->get();
     }
 
-    public function attachToSession(Session $session) {
+    public function attachToSession(Session $session)
+    {
         return DocumentSession::attachDocumentToSession($this, $session);
     }
 }
