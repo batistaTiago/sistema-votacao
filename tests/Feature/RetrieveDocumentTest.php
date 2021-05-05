@@ -31,6 +31,31 @@ class RetrieveDocumentTest extends TestCase
         $this->assertIsArray($response_data, 'data');
         $this->assertEquals($expected_count, count($response_data['data']));
     }
+
+    /** @test */
+    public function get_all_documents_by_status()
+    {
+
+        $expected_count = 2;
+        $status = factory(DocumentStatus::class)->create();
+        $document_status_id = $status->id;
+
+        factory(Document::class)->create();
+
+        factory(Document::class, $expected_count)->create([
+            'document_status_id' => $document_status_id
+        ]);
+
+        $endpoint = $this->base_endpoint . '?' . http_build_query(compact('document_status_id'));
+        $response = $this->get($endpoint, $this->headers);
+
+        $response->assertStatus(200);
+
+        $response_data = $response->decodeResponseJson();
+
+        $this->assertIsArray($response_data, 'data');
+        $this->assertEquals($expected_count, count($response_data['data']));
+    }
     
 
     /** @test */
