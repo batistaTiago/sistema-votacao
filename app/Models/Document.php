@@ -15,6 +15,7 @@ class Document extends Model
     public const AVAILABLE_FILTERS = [
         'document_status_id' => '=',
         'document_category_id' => '=',
+        'name' => '=',
     ];
 
     public function sessions()
