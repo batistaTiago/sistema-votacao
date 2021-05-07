@@ -18,9 +18,6 @@ class CreateDocumentTest extends TestCase
         parent::setUp();
 
         Storage::fake(Document::DEFAULT_DISK);
-        $this->headers = [
-            // 'accept' => 'application/json', // o que espero como resposta
-        ];
 
         $this->pdf_file = UploadedFile::fake()->create('document.pdf', 1023, 'application/pdf'); // arquivo .pdf com 1023kb
         $this->doc_file = UploadedFile::fake()->create('document.doc', 1023, 'application/msword'); // arquivo .doc com 1023kb
@@ -35,7 +32,7 @@ class CreateDocumentTest extends TestCase
         $post_data = factory(Document::class)->raw();
 
         $response = $this
-            ->post(route('api.documents.store'), $post_data, $this->headers);
+            ->post(route('api.documents.store'), $post_data);
 
         $response->assertStatus(200);
 
@@ -67,7 +64,7 @@ class CreateDocumentTest extends TestCase
         ]);
 
         $response = $this
-            ->post(route('api.documents.store'), $post_data, $this->headers);
+            ->post(route('api.documents.store'), $post_data);
 
         $response->assertStatus(200);
 
@@ -85,7 +82,7 @@ class CreateDocumentTest extends TestCase
         ]);
 
         $response = $this
-            ->post(route('api.documents.store'), $post_data, $this->headers);
+            ->post(route('api.documents.store'), $post_data);
 
         $response->assertStatus(200);
 

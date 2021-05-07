@@ -23,7 +23,7 @@ class AttachDocumentSessionTest extends TestCase
     }
 
     /** @test */
-    public function a_document_can_be_added_to_a_session()
+    public function a_document_can_be_attached_to_a_session()
     {
         $this->attachDocumentAndReload();
         $this->assertEquals(1, $this->document->sessions->count());
@@ -31,7 +31,7 @@ class AttachDocumentSessionTest extends TestCase
     }
 
     /** @test */
-    public function adding_a_document_to_the_same_session_twice_throws_an_exception()
+    public function attaching_a_document_to_the_same_session_twice_throws_an_exception()
     {
         $this->expectException(AppBaseException::class);
 
@@ -49,12 +49,44 @@ class AttachDocumentSessionTest extends TestCase
         $this->assertEquals(DocumentStatus::DOC_STATUS_AGUARDANDO_VOTACAO, $this->document->document_status_id);
     }
 
+    /** @test */
+    public function an_attached_document_can_be_detached_from_its_session()
+    {
+        $this->attachDocumentAndReload();
+
+        $this->document->detachFromSession($this->session);
+
+        $this->document = $this->document->fresh();
+        $this->session = $this->session->fresh();
+
+        $this->assertEquals(0, $this->document->sessions->count());
+        $this->assertEquals(0, $this->session->documents->count());
+    }
+
+    /** @test */
+    public function an_attached_document_cannot_be_detached_from_its_session_if_its_not_waiting_for_votes()
+    {
+        $this->attachDocumentAndReload();
+
+        $this->expectException(AppBaseException::class);
+
+        $this->session->openForVotes();
+        $this->session->openDocumentForVoting($this->document);
+
+        $this->document->detachFromSession($this->session);
+
+        $this->document = $this->document->fresh();
+        $this->session = $this->session->fresh();
+
+        $this->assertEquals(0, $this->document->sessions->count());
+        $this->assertEquals(0, $this->session->documents->count());
+    }
+
     /**
      * HELPERS
      * */
     private function attachDocumentAndReload($count = 1)
     {
-
         for ($i = 0; $i < $count; $i++) {
             $this->session->attachDocument($this->document);
         }

@@ -23,7 +23,7 @@ class CreateSessionTest extends TestCase
             'user_id' => $user->id,
         ];
 
-        $response = $this->post(route('api.session.store'), $post_data, $this->headers);
+        $response = $this->post(route('api.session.store'), $post_data);
         
         $response->assertStatus(200);
         $this->assertEquals(1, Session::count());
@@ -45,7 +45,7 @@ class CreateSessionTest extends TestCase
             'user_id' => 1,
         ];
 
-        $response = $this->post(route('api.session.store'), $post_data, $this->headers);
+        $response = $this->post(route('api.session.store'), $post_data);
 
         $response->assertStatus(422);
         $this->assertEquals(0, Session::count());
@@ -60,7 +60,7 @@ class CreateSessionTest extends TestCase
             'name' => 'TESTE ABC',
         ];
 
-        $response = $this->post(route('api.session.store'), $post_data, $this->headers);
+        $response = $this->post(route('api.session.store'), $post_data);
 
         $response->assertStatus(422);
         $this->assertEquals(0, Session::count());

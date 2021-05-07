@@ -22,7 +22,7 @@ class RetrieveDocumentTest extends TestCase
         $expected_count = 5;
         factory(Document::class, $expected_count)->create();
 
-        $response = $this->get($this->base_endpoint, $this->headers);
+        $response = $this->get($this->base_endpoint);
 
         $response->assertStatus(200);
 
@@ -47,7 +47,7 @@ class RetrieveDocumentTest extends TestCase
         ]);
 
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('document_status_id'));
-        $response = $this->get($endpoint, $this->headers);
+        $response = $this->get($endpoint);
 
         $response->assertStatus(200);
 
@@ -74,7 +74,7 @@ class RetrieveDocumentTest extends TestCase
         $session_id = $session->id;
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('session_id'));
 
-        $response = $this->get($endpoint, $this->headers);
+        $response = $this->get($endpoint);
 
         $response->assertStatus(200);
 
@@ -102,7 +102,7 @@ class RetrieveDocumentTest extends TestCase
 
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('session_id', 'document_category_id'));
 
-        $response = $this->get($endpoint, $this->headers);
+        $response = $this->get($endpoint);
 
         $response->assertStatus(200);
 
@@ -134,7 +134,7 @@ class RetrieveDocumentTest extends TestCase
 
         $endpoint = $this->base_endpoint . '?' . http_build_query(compact('session_id', 'document_status_id'));
 
-        $response = $this->get($endpoint, $this->headers);
+        $response = $this->get($endpoint);
 
         $response->assertStatus(200);
 
@@ -153,7 +153,7 @@ class RetrieveDocumentTest extends TestCase
 
     //     $endpoint = $this->base_endpoint . '?' . http_build_query(compact('datetime_start', 'datetime_end'));
 
-    //     $response = $this->get($endpoint, $this->headers);
+    //     $response = $this->get($endpoint);
     //     $response->assertStatus(200);
 
     //     $response_data = $response->decodeResponseJson();
@@ -174,7 +174,7 @@ class RetrieveDocumentTest extends TestCase
 
     //     $endpoint = $this->base_endpoint . '?' . http_build_query(compact('datetime_end'));
 
-    //     $response = $this->get($endpoint, $this->headers);
+    //     $response = $this->get($endpoint);
     //     $response->assertStatus(200);
 
     //     $response_data = $response->decodeResponseJson();
@@ -195,7 +195,7 @@ class RetrieveDocumentTest extends TestCase
 
     //     $endpoint = $this->base_endpoint . '?' . http_build_query(compact('datetime_start'));
 
-    //     $response = $this->get($endpoint, $this->headers);
+    //     $response = $this->get($endpoint);
     //     $response->assertStatus(200);
 
     //     $response_data = $response->decodeResponseJson();

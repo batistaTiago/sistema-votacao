@@ -24,7 +24,7 @@ class VoteTest extends TestCase
 
         $this->assertEquals(0, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
 
         $this->assertEquals(1, Vote::count());
 
@@ -50,12 +50,12 @@ class VoteTest extends TestCase
 
         $this->assertEquals(0, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
         $response->assertStatus(200);
 
         $this->assertEquals(1, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
 
         $this->assertEquals(1, Vote::count());
 
@@ -81,7 +81,7 @@ class VoteTest extends TestCase
 
         $this->assertEquals(0, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
         $response->assertStatus(200);
 
         $this->assertEquals(0, Vote::count());
@@ -101,7 +101,7 @@ class VoteTest extends TestCase
 
         $this->assertEquals(0, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
         $response->assertStatus(422);
 
         $this->assertEquals(0, Vote::count());
@@ -121,7 +121,7 @@ class VoteTest extends TestCase
 
         $this->assertEquals(0, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
         $response->assertStatus(422);
 
         $this->assertEquals(0, Vote::count());
@@ -141,7 +141,7 @@ class VoteTest extends TestCase
 
         $this->assertEquals(0, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
         $response->assertStatus(422);
 
         $this->assertEquals(0, Vote::count());
@@ -161,7 +161,7 @@ class VoteTest extends TestCase
 
         $this->assertEquals(0, Vote::count());
 
-        $response = $this->post(route('api.register-vote'), $post_data, $this->headers);
+        $response = $this->post(route('api.register-vote'), $post_data);
         $response->assertStatus(422);
 
         $this->assertEquals(0, Vote::count());

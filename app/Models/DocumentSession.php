@@ -38,4 +38,18 @@ class DocumentSession extends Model
             throw $e;
         }
     }
+
+    public static function detachDocumentFromSession(Document $document, Session $session)
+    {
+        /* regra: so pode remover da sessao se o documento estiver aberto para votacao */
+
+        if ($document->document_status_id != DocumentStatus::DOC_STATUS_AGUARDANDO_VOTACAO) {
+            throw new AppBaseException('O documento não pode ser removido da sessão, pois não está aguardando votação');
+        }
+
+        return DocumentSession::where([
+            'document_id' => $document->id,
+            'session_id' => $session->id
+        ])->delete();
+    }
 }
