@@ -13,6 +13,8 @@ Route::middleware(ChangeRequestAcceptHeader::class)->group(function () {
     Route::get('sessions', 'SessionController@index')->name('api.session.index');
     Route::get('sessions/documents', 'SessionController@getByDocument')->name('api.session.get-by-document');
     Route::post('sessions', 'SessionController@store')->name('api.session.store');
+
+    Route::post('attach-document', 'DocumentSessionController@attach')->name('api.documents.attach');
     
     Route::post('sessions/open', 'SessionController@openVotes')->name('api.session.open-votes');
     Route::post('sessions/close', 'SessionController@closeVotes')->name('api.session.close-votes');
