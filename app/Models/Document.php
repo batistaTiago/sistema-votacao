@@ -16,6 +16,7 @@ class Document extends Model
         'document_status_id' => '=',
         'document_category_id' => '=',
         'name' => '=',
+        'id' => '=',
     ];
 
     public function sessions()
