@@ -17,15 +17,10 @@ abstract class TestCase extends BaseTestCase
 
         $this->artisan('db:seed');
 
-        $this->headers = [
-            // 'accept' => 'application/json'
-        ];
+        // $this->withoutExceptionHandling([
+        //     'Illuminate\Validation\ValidationException',
+        //     'App\Exceptions\AppBaseException',
+        // ]);
 
-        $this->withoutExceptionHandling([
-            'Illuminate\Validation\ValidationException',
-            'App\Exceptions\AppBaseException',
-        ]);
-
-        $this->followingRedirects();
     }
 }

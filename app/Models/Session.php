@@ -47,6 +47,10 @@ class Session extends Model
         return DocumentSession::attachDocumentToSession($document, $this);
     }
 
+    public function detachDocument(Document $document) {
+        return DocumentSession::detachDocumentFromSession($document, $this);
+    }
+
     public function openForVotes()
     {
         if ($this->session_status_id != SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO) {

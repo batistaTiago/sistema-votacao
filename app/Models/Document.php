@@ -61,4 +61,9 @@ class Document extends Model
     {
         return DocumentSession::attachDocumentToSession($this, $session);
     }
+
+    public function detachFromSession(Session $session)
+    {
+        return DocumentSession::detachDocumentFromSession($this, $session);
+    }
 }
