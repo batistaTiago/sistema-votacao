@@ -6,8 +6,10 @@ Route::middleware(ChangeRequestAcceptHeader::class)->group(function () {
     
     Route::post('/login', 'Auth\LoginController@login')->name('api.login');
     
-    Route::get('documents', 'DocumentController@index')->name('api.documents.index'); // @TODO: singular ou plural?
-    Route::post('documents', 'DocumentController@store')->name('api.documents.store'); // @TODO: singular ou plural?
+    Route::get('documents', 'DocumentController@index')->name('api.documents.index');
+    Route::post('documents', 'DocumentController@store')->name('api.documents.store');
+    Route::patch('documents', 'DocumentController@update')->name('api.documents.update');
+    Route::delete('documents', 'DocumentController@delete')->name('api.documents.delete');
     
     
     Route::get('sessions', 'SessionController@index')->name('api.session.index');

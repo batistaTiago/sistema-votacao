@@ -17,10 +17,10 @@ abstract class TestCase extends BaseTestCase
 
         $this->artisan('db:seed');
 
-        // $this->withoutExceptionHandling([
-        //     'Illuminate\Validation\ValidationException',
-        //     'App\Exceptions\AppBaseException',
-        // ]);
+        $this->withoutExceptionHandling([
+            'Illuminate\Validation\ValidationException',
+            'App\Exceptions\AppBaseException',
+        ]);
 
     }
 }

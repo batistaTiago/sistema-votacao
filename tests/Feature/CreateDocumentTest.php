@@ -52,6 +52,7 @@ class CreateDocumentTest extends TestCase
 
         $this->assertStringContainsString('http', $document->attachment); //salvou como url
         $this->assertStringContainsString('/storage/documents', $document->attachment); //salvou como url
+        $this->assertStringContainsString('document.pdf', $document->attachment); //salvou como url
     }
 
     /** @test */
