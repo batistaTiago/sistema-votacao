@@ -50,13 +50,16 @@ class DocumentController extends Controller
             throw new AppBaseException('O documento não pode ser deletado, pois ja foi votado');
         }
 
-        $attachment = $this->__storeAttachment();
-
-        $document->update([
+        $update_data = [
             'document_category_id' => $request->document_category_id,
-            'attachment' => $attachment,
             'name' => $request->name,
-        ]);
+        ];
+
+        if ($request->hasFile('attachment')) {
+            $update_data['attachment'] =  $this->__storeAttachment();
+        }
+
+        $document->update($update_data);
 
         return response()->json([
             'success' => true,
