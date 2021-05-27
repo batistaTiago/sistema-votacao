@@ -8,7 +8,7 @@ Route::middleware(ChangeRequestAcceptHeader::class)->group(function () {
     
     Route::get('documents', 'DocumentController@index')->name('api.documents.index');
     Route::post('documents', 'DocumentController@store')->name('api.documents.store');
-    Route::patch('documents', 'DocumentController@update')->name('api.documents.update');
+    Route::post('update_document', 'DocumentController@update')->name('api.documents.update');
     Route::delete('documents', 'DocumentController@delete')->name('api.documents.delete');
     
     

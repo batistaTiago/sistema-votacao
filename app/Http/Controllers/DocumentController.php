@@ -16,7 +16,8 @@ class DocumentController extends Controller
 
     public function index(Request $request)
     {
-        $documents = Document::findWithFilters($request->all());
+        $documents = Document::findWithFilters($request->all())
+        ->load('document_status');;
         return response()->json([
             'sucesso' => true,
             'data' => $documents,
@@ -43,11 +44,10 @@ class DocumentController extends Controller
 
     public function update(UpdateOrDeleteDocumentRequest $request)
     {
-
         $document = Document::find($request->document_id);
-
+        echo ($request);
         if ($document->document_status_id == DocumentStatus::DOC_STATUS_VOTACAO_CONCLUIDA) {
-            throw new AppBaseException('O documento não pode ser deletado, pois ja foi votado');
+            throw new AppBaseException('O documento não pode ser atualizado, pois ja foi votado');
         }
 
         $attachment = $this->__storeAttachment();

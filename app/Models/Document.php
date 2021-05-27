@@ -23,6 +23,11 @@ class Document extends Model
     {
         return $this->belongsToMany(Session::class, DocumentSession::class);
     }
+    
+    public function document_status()
+    {
+        return $this->belongsTo(DocumentStatus::class);
+    }
 
     /* refatorar */
     public static function storeFile($file): string
