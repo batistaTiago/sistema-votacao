@@ -46,6 +46,30 @@ class UpdateDocumentTest extends TestCase
     }
 
     /** @test */
+    public function updating_a_document_does_not_require_a_new_file_upload()
+    {
+
+        $document = factory(Document::class)->create();
+        $new_category = factory(DocumentCategory::class)->create();
+
+        $response = $this->patch(route('api.documents.update'), [
+            'document_id' => $document->id,
+            'name' => 'changeeeed!!',
+            'document_category_id' => $new_category->id,
+        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertCount(1, Document::all());
+
+        $document = Document::first();
+
+        $this->assertEquals('changeeeed!!', $document->name);
+        $this->assertEquals($document->document_category_id, $new_category->id);
+
+    }
+
+    /** @test */
     public function documents_cannot_be_updated_if_they_have_been_already_voted()
     {
         
