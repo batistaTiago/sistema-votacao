@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSessionRequest;
 use App\Http\Requests\OpenCloseSessionRequest;
-use App\Http\Requests\UpdateSessionStatusRequest;
+use App\Http\Requests\ChangeSessionStatusRequest;
 
 use App\Models\DocumentSession;
 use App\Models\Session;
@@ -71,7 +71,7 @@ class SessionController extends Controller
         ]);
     }
 
-    public function changeSessionStatus(UpdateSessionStatusRequest $request)
+    public function changeSessionStatus(ChangeSessionStatusRequest $request)
     {
         
             $updatedSession = Session::find($request->session_id)->update(['session_status_id' => $request->session_status_id]);
@@ -79,7 +79,7 @@ class SessionController extends Controller
             if($updatedSession){
 
                 $updatedSession = Session::find($request->session_id);
-                
+
                 return response()->json([
                     'success' =>true,
                     'message' => 'Status da seção atualizada com sucesso',

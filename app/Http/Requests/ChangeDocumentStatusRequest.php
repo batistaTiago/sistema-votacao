@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateSessionStatusRequest extends FormRequest
+class ChangeDocumentStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,9 @@ class UpdateSessionStatusRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
-            'session_id' => ['required', 'numeric', 'min:1'],
-            'session_status_id' => ['required', 'numeric', 'min:1'],
+            'document_id' => ['required', 'numeric'],
+            'document_status_id' => ['required', 'numeric'],
         ];
     }
 }

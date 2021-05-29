@@ -10,7 +10,7 @@ Route::middleware(ChangeRequestAcceptHeader::class)->group(function () {
     Route::post('documents', 'DocumentController@store')->name('api.documents.store');
     Route::post('update_document', 'DocumentController@update')->name('api.documents.update');
     Route::delete('documents', 'DocumentController@delete')->name('api.documents.delete');
-    
+    Route::post('document/change-status' , 'DocumentController@changeDocumentStatus')->name('api.document.change-status');
     
     Route::get('sessions', 'SessionController@index')->name('api.session.index');
     Route::get('sessions/documents', 'SessionController@getByDocument')->name('api.session.get-by-document');

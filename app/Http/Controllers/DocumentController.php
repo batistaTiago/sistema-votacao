@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\AppBaseException;
 use App\Http\Requests\API\UpdateOrDeleteDocumentRequest;
 use App\Http\Requests\CreateDocumentRequest;
+use App\Http\Requests\ChangeDocumentStatusRequest;
 use App\Models\Document;
 use App\Models\DocumentSession;
 use App\Models\DocumentStatus;
@@ -88,5 +89,23 @@ class DocumentController extends Controller
     {
         $file = request()->file('attachment');
         return Document::storeFile($file);
+    }
+
+    public function changeDocumentStatus(ChangeDocumentStatusRequest $request)
+    {
+
+        $updatedDocument = Document::find($request->document_id)->update(['document_status_id' => $request->document_status_id ]);
+
+
+        if($updatedDocument){
+
+            $updatedDocument = Document::find($request->document_id);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Status do documento atualizado com sucesso',
+                'data' => $updatedDocument
+            ]);
+        }
     }
 }
