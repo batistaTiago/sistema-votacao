@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSessionRequest;
 use App\Http\Requests\OpenCloseSessionRequest;
+use App\Http\Requests\UpdateSessionStatusRequest;
+
 use App\Models\DocumentSession;
 use App\Models\Session;
 use Illuminate\Http\Request;
@@ -67,5 +69,22 @@ class SessionController extends Controller
             'success' => true,
             'message' => 'A sessão foi finalizada com sucesso'
         ]);
+    }
+
+    public function changeSessionStatus(UpdateSessionStatusRequest $request)
+    {
+        
+            $updatedSession = Session::find($request->session_id)->update(['session_status_id' => $request->session_status_id]);
+
+            if($updatedSession){
+
+                $updatedSession = Session::find($request->session_id);
+                
+                return response()->json([
+                    'success' =>true,
+                    'message' => 'Status da seção atualizada com sucesso',
+                    'data' => $updatedSession
+                ]);
+            }
     }
 }

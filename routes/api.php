@@ -15,6 +15,7 @@ Route::middleware(ChangeRequestAcceptHeader::class)->group(function () {
     Route::get('sessions', 'SessionController@index')->name('api.session.index');
     Route::get('sessions/documents', 'SessionController@getByDocument')->name('api.session.get-by-document');
     Route::post('sessions', 'SessionController@store')->name('api.session.store');
+    Route::post('sessions/change-status' , 'SessionController@changeSessionStatus')->name('api.session.change-status');
 
     Route::post('attach-document', 'DocumentSessionController@attach')->name('api.documents.attach');
     Route::post('detach-document', 'DocumentSessionController@detach')->name('api.documents.detach');
