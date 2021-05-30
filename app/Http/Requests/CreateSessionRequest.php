@@ -26,6 +26,7 @@ class CreateSessionRequest extends FormRequest
         return [
             'user_id' => ['required', 'numeric', 'min:1'],
             'name' => ['required', 'string', 'min:3', 'max: 255'],
+            'datetime_start' => ['required', 'date'],
         ];
     }
 }

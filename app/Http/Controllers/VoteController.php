@@ -12,6 +12,15 @@ use Illuminate\Http\Request;
 
 class VoteController extends Controller
 {
+    public function index(Request $request)
+    {
+        $votes = Vote::findWithFilters($request->all());
+        return response()->json([
+            'sucesso' => true,
+            'data' => $votes,
+        ]);
+    }
+
     public function registerVote(RegisterVoteRequest $request)
     {
         try {

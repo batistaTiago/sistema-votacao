@@ -24,6 +24,7 @@ Route::middleware(ChangeRequestAcceptHeader::class)->group(function () {
     Route::post('sessions/close', 'SessionController@closeVotes')->name('api.session.close-votes');
     
     Route::post('register-vote', 'VoteController@registerVote')->name('api.register-vote');
+    Route::get('votes', 'VoteController@index')->name('api.get-votes');
 
     Route::get('session-statuses', 'SessionStatusController@index')->name('api.session-statuses');
     Route::get('document-statuses', 'DocumentStatusController@index')->name('api.document-statuses');
