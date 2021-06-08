@@ -18,6 +18,8 @@ class CreateDocumentsTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
+
+            $table->string('protocol_number');
             
             $table->string('attachment');
             $table->boolean('votes_are_secret')->nullable();

@@ -26,7 +26,8 @@ class UpdateDocumentTest extends TestCase
             'document_id' => $document->id,
             'name' => 'changeeeed!!',
             'document_category_id' => $new_category->id,
-            'attachment' => $this->pdf_file
+            'attachment' => $this->pdf_file,
+            'protocol_number' => '1234'
         ]);
 
         $response->assertStatus(200);
@@ -37,6 +38,7 @@ class UpdateDocumentTest extends TestCase
 
         $this->assertEquals('changeeeed!!', $document->name);
         $this->assertEquals($document->document_category_id, $new_category->id);
+        $this->assertEquals('1234', $document->protocol_number);
 
         $this->assertStringContainsString('http', $document->attachment); //salvou como url
         $this->assertStringContainsString('/storage/documents', $document->attachment); //salvou como url

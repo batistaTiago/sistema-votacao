@@ -49,6 +49,7 @@ class CreateDocumentTest extends TestCase
         $this->assertEquals($post_data['document_category_id'], $document->document_category_id);
         $this->assertEquals(DocumentStatus::DOC_STATUS_CRIADO, $document->document_status_id);
         $this->assertEquals($post_data['name'], $document->name);
+        $this->assertEquals($post_data['protocol_number'], $document->protocol_number);
 
         $this->assertStringContainsString('http', $document->attachment); //salvou como url
         $this->assertStringContainsString('/storage/documents', $document->attachment); //salvou como url

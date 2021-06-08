@@ -25,7 +25,8 @@ class UpdateOrDeleteDocumentRequest extends FormRequest
     {
 
         return [
-            'document_id' => ['required', 'exists:documents,id']
+            'document_id' => ['required', 'exists:documents,id'],
+            'protocol_number' => ['numeric']
         ];
     }
 }

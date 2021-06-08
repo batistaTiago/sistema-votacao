@@ -18,22 +18,25 @@ class CreateSessionTest extends TestCase
 
         $user = factory(User::class)->create();
 
+        $datetime_start = now()->addDays(2)->toDateString();
+
         $post_data = [
             'name' => 'TESTE ABC',
             'user_id' => $user->id,
+            'datetime_start' => $datetime_start
         ];
 
         $response = $this->post(route('api.session.store'), $post_data);
-        
+
         $response->assertStatus(200);
         $this->assertEquals(1, Session::count());
 
         $session = Session::first();
 
-        $this->assertNull($session->datetime_start);
         $this->assertNull($session->datetime_end);
         $this->assertEquals(SessionStatus::SESSION_STATUS_AGUARDANDO_VOTACAO, $session->session_status_id);
         $this->assertEquals('TESTE ABC', $session->name);
+        $this->assertEquals($datetime_start, $session->datetime_start);
 
     }
 
