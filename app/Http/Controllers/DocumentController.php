@@ -18,7 +18,9 @@ class DocumentController extends Controller
     public function index(Request $request)
     {
         $documents = Document::findWithFilters($request->all())
-            ->load('document_status');
+          ->load('document_status')
+          ->load('document_category')
+          ->load('user');
 
         return response()->json([
             'sucesso' => true,
@@ -32,8 +34,7 @@ class DocumentController extends Controller
         $attachment = $this->__storeAttachment();
 
         $document = Document::create(array_merge($request->validated(), compact('attachment')));
-
-        if (isset($request->session_id)) {
+        if (isset($request->session_id) && $request->session_id != "undefined") {
             $session = Session::find($request->session_id);
             DocumentSession::attachDocumentToSession($document, $session);
         }

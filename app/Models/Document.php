@@ -17,6 +17,7 @@ class Document extends Model
         'document_category_id' => '=',
         'name' => '=',
         'id' => '=',
+        'user_id' => '=',
     ];
 
     public function sessions()
@@ -27,6 +28,16 @@ class Document extends Model
     public function document_status()
     {
         return $this->belongsTo(DocumentStatus::class);
+    }
+
+    public function document_category()
+    {
+        return $this->belongsTo(DocumentCategory::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /* refatorar */

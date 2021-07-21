@@ -16,6 +16,8 @@ class ChangeRequestAcceptHeader
     public function handle($request, Closure $next)
     {
         $request->headers->set('Accept', 'application/json');
+        $request->headers->set('Access-Control-Allow-Origin', '*');
+        
         return $next($request);
     }
 }

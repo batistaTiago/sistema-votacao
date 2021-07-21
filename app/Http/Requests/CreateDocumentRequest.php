@@ -27,7 +27,7 @@ class CreateDocumentRequest extends FormRequest
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'attachment' => ['required', 'file', 'mimes:pdf,doc,docx'],
             'document_category_id' => ['required'],
-            'protocol_number' => [ 'required', 'numeric' ]
+            'user_id' => ['required']
         ];
     }
 }
